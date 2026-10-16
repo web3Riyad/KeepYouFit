@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useFitnessPlan } from "../lib/fitness-plan";
 
 const navigation = [
   { label: "Workouts", href: "/", section: "/workouts" },
@@ -12,6 +13,7 @@ const navigation = [
 
 const Navbar = () => {
   const pathname = usePathname();
+  const { plan, saved, ready } = useFitnessPlan();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const toggleRef = useRef(null);
@@ -91,11 +93,11 @@ const Navbar = () => {
         <div className="col-start-3 row-start-1 flex items-center justify-end gap-3 sm:gap-5">
           <Link href="/myplan" className="flex min-h-11 items-center gap-2 text-[11px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d5ff00]">
             Plan
-            <span className="flex size-4 items-center justify-center rounded-full bg-[#d5ff00] text-[9px] font-bold text-[#0c0d0f]">0</span>
+            <span className="flex size-4 items-center justify-center rounded-full bg-[#d5ff00] text-[9px] font-bold text-[#0c0d0f]">{ready ? plan.length : "—"}</span>
           </Link>
-          <Link href="/myplan" className="flex min-h-11 cursor-pointer items-center gap-2 text-[11px] text-[#999faa] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d5ff00]">
+          <Link href="/myplan?tab=saved" className="flex min-h-11 cursor-pointer items-center gap-2 text-[11px] text-[#999faa] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d5ff00]">
             Saved
-            <span className="flex size-4 items-center justify-center rounded-full border border-[#34363d] text-[9px] text-white">0</span>
+            <span className="flex size-4 items-center justify-center rounded-full border border-[#34363d] text-[9px] text-white">{ready ? saved.length : "—"}</span>
           </Link>
         </div>
       </nav>

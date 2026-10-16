@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import WorkoutActions from "../../../components/WorkoutActions";
 
 export default async function WorkoutDetails({ params }) {
   const { id } = await params;
@@ -79,21 +80,7 @@ export default async function WorkoutDetails({ params }) {
             </ol>
           </section>
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            <button type="button" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#d5ff00] px-5 py-3 text-xs font-bold text-[#11150a] transition-colors hover:bg-[#e2ff4d] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d5ff00]">
-              <svg aria-hidden="true" className="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="5" width="18" height="16" rx="2" />
-                <path d="M16 3v4M8 3v4M3 11h18M12 14v4M10 16h4" />
-              </svg>
-              Add to today&apos;s plan
-            </button>
-            <button type="button" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-[#34363d] bg-transparent px-5 py-3 text-xs font-medium text-[#b1b5bd] transition-colors hover:border-[#999faa] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d5ff00]">
-              <svg aria-hidden="true" className="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M6 4h12v17l-6-4-6 4V4Z" />
-              </svg>
-              Save for later
-            </button>
-          </div>
+          <WorkoutActions workout={workout} />
           </div>
         </article>
       </div>
