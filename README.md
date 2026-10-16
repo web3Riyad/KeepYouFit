@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# FitLog — Workout & Daily Planner
+
+## Project Description
+
+FitLog is a fitness web application for browsing exercises, planning daily workouts, and saving lifts for later. Users can explore workout instructions, build a plan of up to five exercises, and mark workouts as completed. Plan totals and navbar counters update immediately as users interact with the app.
+
+The interface uses a dark theme with lime accents and adapts to desktop and mobile screens. Workout selections are saved in the browser using localStorage.
+
+## Technologies Used
+
+- **Next.js 16** — App Router, page routing, and server-rendered workout data.
+- **React 19** — Interactive components and shared workout state.
+- **JavaScript (JSX)** — Application logic and component development.
+- **Tailwind CSS 4** — Responsive layouts and styling.
+- **DaisyUI 5** — Tailwind CSS component utilities.
+- **nextjs-toast-notify** — Toast notifications for workout actions.
+- **Browser localStorage** — Persistent plan and saved workout selections.
+- **ESLint** — Code linting with Next.js rules.
+
+## Features
+
+1. **Workout library:** Browse exercises with images, muscle groups, equipment, duration, calories, and ratings.
+2. **Workout details:** View exercise descriptions, difficulty, sets, repetitions, and step-by-step instructions.
+3. **Daily workout plan:** Add up to five exercises, remove workouts, and mark exercises as done to free a slot.
+4. **Save for later:** Save and unsave exercises independently of today's plan, with a dedicated Saved list.
+5. **Live totals and navbar counters:** Automatically update exercise counts, total minutes, calories, and Plan/Saved badges after each relevant action.
+6. **Workout sorting:** Sort plan and saved workouts by duration, calories, or rating.
+7. **Persistent selections:** Restore plan and saved workouts after refreshing the page and synchronize changes across browser tabs.
+8. **Toast notifications:** Show feedback when workouts are added, saved, removed, or completed, with automatic and manual dismissal.
+9. **Responsive interface:** Support desktop and mobile layouts, mobile navigation, and helpful empty states with a link to the workout library.
 
 ## Getting Started
 
-First, run the development server:
+From the `fitness_app` directory, install dependencies and start the development server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Available Commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the development server. |
+| `npm run build` | Create a production build. |
+| `npm run start` | Serve the production build. |
+| `npm run lint` | Run ESLint checks. |
 
-## Learn More
+## Workout Data and Storage
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Workout data is fetched from `https://api.abcz.workers.dev/api/fitlog`, so loading the library and workout details requires an internet connection. Plan and saved selections are stored locally in the current browser; they are not linked to a user account or synchronized across devices.
