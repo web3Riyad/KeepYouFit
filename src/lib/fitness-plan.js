@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { notify } from "./notify";
 
 export const PLAN_LIMIT = 5;
 export const STORAGE_KEY = "fitlog:workouts:v1";
@@ -94,33 +95,35 @@ function commit(next) {
 
 export function addToPlan(data) {
   const workout = summarizeWorkout(data);
-  if (!workout) return "This workout could not be added.";
-  if (snapshot.plan.some((item) => item.id === workout.id)) return `${workout.name} is already in today's plan.`;
-  if (snapshot.plan.length >= PLAN_LIMIT) return "Your plan is full. Finish or remove a workout before adding another.";
+  if (!workout) return notify("This workout could not be added.", "error");
+  if (snapshot.plan.some((item) => item.id === workout.id)) return notify(`${workout.name} is already in today's plan.`, "info");
+  if (snapshot.plan.length >= PLAN_LIMIT) return notify("Your plan is full. Finish or remove a workout before adding another.", "warning");
   commit({ plan: [...snapshot.plan, workout] });
-  return `${workout.name} added to today's plan.`;
+  return notify(`${workout.name} added to today's plan.`);
 }
 
 export function removeFromPlan(id, completed = false) {
   const workout = snapshot.plan.find((item) => item.id === String(id));
   if (!workout) return "";
   commit({ plan: snapshot.plan.filter((item) => item.id !== String(id)) });
-  return completed ? `${workout.name} completed. You have room for another workout!` : `${workout.name} removed from today's plan.`;
+  return completed
+    ? notify(`${workout.name} completed. You have room for another workout!`)
+    : notify(`${workout.name} removed from today's plan.`, "info");
 }
 
 export function removeSaved(id) {
   const workout = snapshot.saved.find((item) => item.id === String(id));
   if (!workout) return "";
   commit({ saved: snapshot.saved.filter((item) => item.id !== String(id)) });
-  return `${workout.name} removed from saved workouts.`;
+  return notify(`${workout.name} removed from saved workouts.`, "info");
 }
 
 export function toggleSaved(data) {
   const workout = summarizeWorkout(data);
-  if (!workout) return "This workout could not be saved.";
+  if (!workout) return notify("This workout could not be saved.", "error");
   if (snapshot.saved.some((item) => item.id === workout.id)) return removeSaved(workout.id);
   commit({ saved: [...snapshot.saved, workout] });
-  return `${workout.name} saved for later.`;
+  return notify(`${workout.name} saved for later.`);
 }
 
 export function useFitnessPlan() {

@@ -26,7 +26,6 @@ function MyPlan() {
   const { plan, saved, ready, storageError } = useFitnessPlan();
     
   const [sortBy, setSortBy] = useState("duration");
-  const [message, setMessage] = useState("");
     
   const items = [...(savedTab ? saved : plan)].sort((a, b) => {
     if (sortBy === "duration") return a.duration - b.duration;
@@ -65,7 +64,6 @@ function MyPlan() {
           </label>
         </div>
 
-        <p role="status" className={message ? "mt-4 text-xs text-[#d5ff00]" : "sr-only"}>{message}</p>
         {storageError ? <p role="alert" className="mt-4 text-xs text-amber-300">{storageError}</p> : null}
 
         <section aria-label={savedTab ? "Saved workouts" : "Today's workouts"} aria-busy={!ready} className="mt-5">
@@ -97,11 +95,11 @@ function MyPlan() {
                     <div className="flex w-full flex-wrap items-center justify-end gap-2.5 sm:ml-auto sm:w-auto sm:shrink-0">
                       <Link href={`/workouts/${encodeURIComponent(workout.id)}`} className={`rounded-full border border-[#343946] px-4 py-2 text-[10px] text-[#d1d5db] transition-colors hover:border-[#999faa] hover:text-white ${focusRing}`}>View Details<span className="sr-only"> for {workout.name}</span></Link>
                       {!savedTab ? (
-                        <button type="button" onClick={() => setMessage(removeFromPlan(workout.id, true))} className={`flex cursor-pointer items-center gap-2 rounded-full bg-[#d5ff00] px-4 py-2 text-[10px] font-bold text-[#11150a] transition-colors hover:bg-[#e2ff4d] ${focusRing}`}>
+                        <button type="button" onClick={() => removeFromPlan(workout.id, true)} className={`flex cursor-pointer items-center gap-2 rounded-full bg-[#d5ff00] px-4 py-2 text-[10px] font-bold text-[#11150a] transition-colors hover:bg-[#e2ff4d] ${focusRing}`}>
                           <span aria-hidden="true">✓</span> Mark as Done<span className="sr-only">: {workout.name}</span>
                         </button>
                       ) : null}
-                      <button type="button" aria-label={`Remove ${workout.name} from ${savedTab ? "saved workouts" : "today's plan"}`} onClick={() => setMessage(savedTab ? removeSaved(workout.id) : removeFromPlan(workout.id))} className={`flex size-9 cursor-pointer items-center justify-center rounded-full text-[#777f8e] transition-colors hover:bg-white/5 hover:text-white ${focusRing}`}>
+                      <button type="button" aria-label={`Remove ${workout.name} from ${savedTab ? "saved workouts" : "today's plan"}`} onClick={() => savedTab ? removeSaved(workout.id) : removeFromPlan(workout.id)} className={`flex size-9 cursor-pointer items-center justify-center rounded-full text-[#777f8e] transition-colors hover:bg-white/5 hover:text-white ${focusRing}`}>
                         <svg aria-hidden="true" className="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="m7 7 10 10M7 17 17 7" /></svg>
                       </button>
                     </div>
