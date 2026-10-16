@@ -93,10 +93,10 @@ const Navbar = () => {
             Plan
             <span className="flex size-4 items-center justify-center rounded-full bg-[#d5ff00] text-[9px] font-bold text-[#0c0d0f]">0</span>
           </Link>
-          <button type="button" className="flex min-h-11 cursor-pointer items-center gap-2 text-[11px] text-[#999faa] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d5ff00]">
+          <Link href="/myplan" className="flex min-h-11 cursor-pointer items-center gap-2 text-[11px] text-[#999faa] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d5ff00]">
             Saved
             <span className="flex size-4 items-center justify-center rounded-full border border-[#34363d] text-[9px] text-white">0</span>
-          </button>
+          </Link>
         </div>
       </nav>
     </header>
